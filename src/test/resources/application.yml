@@ -1,0 +1,36 @@
+eureka:
+  client:
+    enabled: false
+
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+    resource:
+      jwt:
+        keyValue: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2c9mDDX6otooD5y1xLyf
+          1f3GUUH+4SgVPtX6PDyxz71UVltYe+/8jQtZae9DBzjRQBGuDvzC5bsHdz/hAUq0
+          5fMECVqidIgsufMjjbwuJDDHhoBZ4SzuImK8ipXNSgt7jKF0YdtdAnxHFRa8HkFn
+          cmC6dGa2AESlQOZ10Qhp9RZpnHSe0bgX9fjeTL1ER11HcTcYUNRNLdCWv786n65j
+          OO83lej9DzdD+x53JccICDhoZTMmNHqYzAaxvEH6hJO0iBgFrgelNmMdx9HkaxgA
+          /EKkeEYD6cIe7fW1IJM3u+lzUlHSL2unnTedpmtGKAAM4l7wMzANz3wJf2zqAB3f
+          lQIDAQAB
+          -----END PUBLIC KEY-----
+
+server:
+  port: 0
+
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
+  main:
+    banner-mode: 'off'
+  output:
+    ansi:
+      enabled: ALWAYS
+  zipkin:
+    enabled: false

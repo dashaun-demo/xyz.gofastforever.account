@@ -1,0 +1,33 @@
+<configuration>
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+  <!-- use Spring default values for !json-log -->
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+  <property name="CONSOLE_LOG_PATTERN"
+    value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%5.10t]){faint} %clr(%-40.40logger{39}:%L){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+  <springProfile name="json-log">
+    <appender class="ch.qos.logback.core.ConsoleAppender" name="consoleAppender">
+      <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+        <includeCallerData>true</includeCallerData>
+      </encoder>
+    </appender>
+    <logger additivity="false" level="DEBUG" name="jsonLogger">
+      <appender-ref ref="consoleAppender"/>
+    </logger>
+    <root level="ERROR">
+      <appender-ref ref="consoleAppender"/>
+    </root>
+  </springProfile>
+  <springProfile name="!json-log">
+    <appender class="ch.qos.logback.core.ConsoleAppender" name="consoleAppender">
+      <encoder>
+        <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        <charset>utf8</charset>
+      </encoder>
+    </appender>
+    <root level="ERROR">
+      <appender-ref ref="consoleAppender"/>
+    </root>
+  </springProfile>
+
+  <jmxConfigurator/>
+</configuration>
